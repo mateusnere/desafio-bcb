@@ -1,0 +1,33 @@
+version: '3.7'
+
+services:
+  desafio-bcb-producer:
+    build:
+      context: ./desafio-bcb-producer/
+      dockerfile: src/main/docker/Dockerfile.jvm
+    container_name: desafio-bcb-producer
+    restart: always
+    networks:
+      - bcb_networking
+    ports:
+      - '8080:8080'
+    expose:
+      - '8080'
+
+  desafio-bcb-consumer:
+    build:
+      context: ./desafio-bcb-consumer/
+      dockerfile: src/main/docker/Dockerfile.jvm
+    container_name: desafio-bcb-consumer
+    restart: always
+    networks:
+      - bcb_networking
+    ports:
+      - '8081:8080'
+    expose:
+      - '8080'
+      - '8081'
+
+networks:
+  bcb_networking:
+    driver: bridge
